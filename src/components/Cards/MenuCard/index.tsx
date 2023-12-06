@@ -3,16 +3,19 @@ import React from 'react'
 
 type Props = {
   title: string
-  imgName: string
+  imgName: any
   onPress: () => void
 }
+
 const { width } = Dimensions.get('window')
 export default function MenuCard(data: Props) {
   return (
     <TouchableOpacity
+      onPress={data.onPress}
       style={{
         width: width / 2.1,
         height: 180,
+        borderRadius: 10,
         backgroundColor: '#fff',
       }}
     >
@@ -35,7 +38,7 @@ export default function MenuCard(data: Props) {
           height: 180,
           borderRadius: 10,
         }}
-        source={require(`../../../assets/card_images/forest.jpg`)}
+        source={data.imgName}
       />
     </TouchableOpacity>
   )

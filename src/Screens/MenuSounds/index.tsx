@@ -5,45 +5,46 @@ export function MenuSounds() {
   const data = [
     {
       title: 'Forest',
-      imgName: 'forest',
+      imgName: require('./../../assets/card_images/forest.jpg'),
       onPress: () => {
         console.log('Forest')
       },
     },
     {
-      title: 'Forest',
-      imgName: 'forest',
+      title: 'Rain',
+      imgName: require('./../../assets/card_images/rain.jpg'),
       onPress: () => {
-        console.log('Forest')
+        console.log('Rain')
       },
     },
   ]
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <View
-        style={{
-          marginTop: 20,
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#171717',
+      }}
+    >
+      <FlatList
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{
+          justifyContent: 'center',
+          gap: 10,
         }}
-      >
-        <FlatList
-          ItemSeparatorComponent={() => <View style={{ width: '6%' }} />}
-          horizontal
-          data={data}
-          renderItem={({ item }) => (
-            <View
-              style={{
-                width: '45%',
-              }}
-            >
-              <MenuCard
-                title={item.title}
-                imgName={item.imgName}
-                onPress={item.onPress}
-              />
-            </View>
-          )}
-        />
-      </View>
+        data={data}
+        renderItem={({ item }) => {
+          return (
+            <MenuCard
+              imgName={item.imgName}
+              title={item.title}
+              onPress={item.onPress}
+            />
+          )
+        }}
+      />
     </View>
   )
 }
