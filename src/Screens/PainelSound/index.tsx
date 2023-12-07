@@ -4,15 +4,14 @@ import { Audio } from 'expo-av'
 import { useRoute } from '@react-navigation/native'
 import Controller from '../../components/PlayerController'
 import Header from '../../components/Header'
-import { AntDesign, Ionicons } from '@expo/vector-icons'
 import { style } from './style'
-import Icon from '../../components/Icon'
 
 const { width, height } = Dimensions.get('window')
 
 export default function PainelSound({ navigation }) {
   const params: any = useRoute().params
   const [state, setState] = React.useState(false)
+  const [volume, setVolume] = React.useState(0.5)
   const soundRef = useRef<Audio.Sound | null>(null)
 
   async function playSound() {
@@ -39,6 +38,9 @@ export default function PainelSound({ navigation }) {
   const handleFocus = () => {
     playSound()
   }
+  useEffect(() => {
+    soundRef.current?.setVolumeAsync(volume)
+  }, [volume])
 
   useEffect(() => {
     const unsubscribeBlur = navigation.addListener('blur', handleBlur)
@@ -50,14 +52,6 @@ export default function PainelSound({ navigation }) {
     }
   }, [navigation])
 
-  useEffect(() => {
-    return () => {
-      if (soundRef.current) {
-        console.log('Unloading Sound')
-        soundRef.current.unloadAsync()
-      }
-    }
-  }, [])
   return (
     <View style={{ flex: 1 }}>
       <Image
@@ -72,20 +66,10 @@ export default function PainelSound({ navigation }) {
       <Header />
 
       <View style={style.painelContainer}>
-        <Icon
-          onPress={() => console.log()}
-          icon={AntDesign}
-          name="clockcircle"
-          size={28}
-          color="#FFF"
-        />
-        <Controller onPress={() => playSound()} changeState={state} />
-        <Icon
-          onPress={() => console.log()}
-          icon={Ionicons}
-          name="volume-low"
-          size={28}
-          color="#FFF"
+        <Controller
+          volume={(vol) => setVolume(vol)}
+          controllerPress={() => playSound()}
+          changeState={state}
         />
       </View>
     </View>
