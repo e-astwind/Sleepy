@@ -1,32 +1,33 @@
 import { View, FlatList } from 'react-native'
+import React from 'react'
 import MenuCard from '../../components/Cards/MenuCard'
+import { style } from './style'
 
-export function MenuSounds() {
+export function MenuSounds({ navigation }) {
   const data = [
     {
       title: 'Forest',
       imgName: require('./../../assets/card_images/forest.jpg'),
       onPress: () => {
-        console.log('Forest')
+        navigation.navigate('PainelSound', {
+          sound: 'forest',
+          imgRoute: require('./../../assets/card_images/forest.jpg'),
+        })
       },
     },
     {
       title: 'Rain',
       imgName: require('./../../assets/card_images/rain.jpg'),
       onPress: () => {
-        console.log('Rain')
+        navigation.navigate('PainelSound', {
+          name: 'forest',
+          imgRoute: require('./../../assets/card_images/rain.jpg'),
+        })
       },
     },
   ]
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#171717',
-      }}
-    >
+    <View style={style.container}>
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}

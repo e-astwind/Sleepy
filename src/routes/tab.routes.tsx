@@ -1,16 +1,32 @@
-import * as React from 'react'
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons } from '@expo/vector-icons'
 import { Text } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { MenuSounds, Settings, Analytics } from '../Screens/'
+import { PainelSound, MenuSounds, Settings } from '../Screens/'
 
+const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
+
+function MainStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+      initialRouteName="MenuSounds"
+    >
+      <Stack.Screen name="MenuSounds" component={MenuSounds} />
+      <Stack.Screen name="PainelSound" component={PainelSound} />
+    </Stack.Navigator>
+  )
+}
 
 export default function TabRoutes() {
   return (
@@ -21,6 +37,7 @@ export default function TabRoutes() {
           tabBarStyle: {
             backgroundColor: '#171717',
             height: 60,
+            borderColor: 'none',
           },
           tabBarIcon: ({ focused }) => {
             let iconName: any
@@ -30,19 +47,9 @@ export default function TabRoutes() {
             if (route.name === 'Settings') {
               iconName = 'settings-sharp'
             }
-            if (route.name === 'Analytics') {
-              iconName = 'analytics'
-            }
-            const yAxis = useSharedValue(8)
-            const animatedStyles = useAnimatedStyle(() => {
-              return {
-                transform: [{ translateY: yAxis.value }],
-              }
-            })
-            if (focused) yAxis.value = withTiming(-1)
-            else yAxis.value = withTiming(8)
+
             return (
-              <Animated.View style={[animatedStyles]}>
+              <Animated.View>
                 <Ionicons
                   name={iconName}
                   size={24}
@@ -52,14 +59,14 @@ export default function TabRoutes() {
             )
           },
           tabBarLabel: ({ focused }) => {
-            const yAxis = useSharedValue(-8)
+            const yAxis = useSharedValue(-2)
             const animatedStyles = useAnimatedStyle(() => {
               return {
                 transform: [{ translateY: yAxis.value }],
               }
             })
-            if (focused) yAxis.value = withTiming(-2)
-            else yAxis.value = withTiming(-8)
+            if (focused) yAxis.value = withTiming(-8)
+            else yAxis.value = withTiming(-2)
 
             return (
               <Animated.View style={[animatedStyles, { alignSelf: 'center' }]}>
@@ -75,9 +82,8 @@ export default function TabRoutes() {
           },
         })}
       >
-        <Tab.Screen name="Sounds" component={MenuSounds} />
+        <Tab.Screen name="Sounds" component={MainStack} />
         <Tab.Screen name="Settings" component={Settings} />
-        <Tab.Screen name="Analytics" component={Analytics} />
       </Tab.Navigator>
     </NavigationContainer>
   )
