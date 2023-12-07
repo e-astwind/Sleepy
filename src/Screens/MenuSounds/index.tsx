@@ -6,12 +6,12 @@ import { style } from './style'
 export function MenuSounds({ navigation }) {
   const data = [
     {
-      title: 'Forest',
-      imgName: require('./../../assets/card_images/forest.jpg'),
+      title: 'Rain city',
+      imgName: require('./../../assets/card_images/chuva.gif'),
       onPress: () => {
         navigation.navigate('PainelSound', {
-          sound: 'forest',
-          imgRoute: require('./../../assets/card_images/forest.jpg'),
+          name: 'Rain city',
+          imgRoute: require('./../../assets/card_images/chuva.gif'),
         })
       },
     },

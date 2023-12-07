@@ -1,17 +1,25 @@
-import { TouchableOpacity } from 'react-native'
+import { TouchableOpacity, TouchableOpacityProps } from 'react-native'
 type Props = {
   name: string
   onPress?: () => void
-  size?: number
-  color?: string
+  size: number
+  color: string
   icon: any
+  style?: TouchableOpacityProps['style']
 }
 
-export default function Icon({ name, onPress, size, color, icon }: Props) {
+export default function Icon({
+  name,
+  onPress,
+  size,
+  color,
+  icon,
+  style,
+}: Props) {
   let Icon = icon
 
   return (
-    <TouchableOpacity activeOpacity={onPress ? 0.2 : 1} onPress={onPress}>
+    <TouchableOpacity style={style} disabled={!onPress} onPress={onPress}>
       <Icon name={name} size={size} color={color} />
     </TouchableOpacity>
   )

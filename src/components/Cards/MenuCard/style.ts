@@ -4,7 +4,7 @@ const { width } = Dimensions.get('window')
 export const style = StyleSheet.create({
   container: {
     width: width / 2.1,
-    height: 180,
+    height: 240,
     borderRadius: 10,
     backgroundColor: '#fff',
   },
@@ -19,7 +19,7 @@ export const style = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 180,
+    height: 240,
     borderRadius: 10,
   },
 })
