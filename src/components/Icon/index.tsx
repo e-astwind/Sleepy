@@ -8,14 +8,7 @@ type Props = {
   style?: TouchableOpacityProps['style']
 }
 
-export default function Icon({
-  name,
-  onPress,
-  size,
-  color,
-  icon,
-  style,
-}: Props) {
+export function Icon({ name, onPress, size, color, icon, style }: Props) {
   let Icon = icon
 
   return (

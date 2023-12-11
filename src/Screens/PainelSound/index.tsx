@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { View, Image } from 'react-native'
 import { Audio } from 'expo-av'
 import { useRoute } from '@react-navigation/native'
-import Controller from '../../components/PlayerController'
-import Header from '../../components/Header'
+import { Controller, Header } from '../../components'
 import { style } from './style'
 
 export default function PainelSound({ navigation }) {

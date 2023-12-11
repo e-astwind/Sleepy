@@ -3,18 +3,14 @@ import React, { useEffect } from 'react'
 import { style } from './style'
 import Slider from '@react-native-community/slider'
 import { FontAwesome5, AntDesign, Ionicons } from '@expo/vector-icons'
-import Icon from '../Icon'
+import { Icon } from '../'
 type Props = {
   changeState: boolean
   controllerPress: () => void
   volume: (vol: number) => void
 }
 
-export default function Controller({
-  changeState,
-  controllerPress,
-  volume,
-}: Props) {
+export function Controller({ changeState, controllerPress, volume }: Props) {
   const [vol, setVol] = React.useState(0.5)
 
   useEffect(() => {

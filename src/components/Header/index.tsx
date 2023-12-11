@@ -3,9 +3,9 @@ import React from 'react'
 import { style } from './style'
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import Icon from '../Icon'
+import { Icon } from '../'
 
-export default function Header() {
+export function Header() {
   const navigation = useNavigation()
   return (
     <View style={style.container}>

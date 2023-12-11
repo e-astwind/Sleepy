@@ -1,6 +1,6 @@
 import { View, FlatList } from 'react-native'
 import React from 'react'
-import MenuCard from '../../components/Cards/MenuCard'
+import { MenuCard } from '../../components'
 import { style } from './style'
 import { dataSounds } from '../../mocks/data-sounds'
 

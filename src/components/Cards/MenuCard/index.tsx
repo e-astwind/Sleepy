@@ -8,7 +8,7 @@ type Props = {
   onPress: () => void
 }
 
-export default function MenuCard(data: Props) {
+export function MenuCard(data: Props) {
   return (
     <TouchableOpacity onPress={data.onPress} style={style.container}>
       <Text style={style.title}>{data.title}</Text>
