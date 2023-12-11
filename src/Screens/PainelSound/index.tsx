@@ -1,12 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-import { View, Image, Dimensions } from 'react-native'
+import { View, Image } from 'react-native'
 import { Audio } from 'expo-av'
 import { useRoute } from '@react-navigation/native'
 import Controller from '../../components/PlayerController'
 import Header from '../../components/Header'
 import { style } from './style'
-
-const { width, height } = Dimensions.get('window')
 
 export default function PainelSound({ navigation }) {
   const params: any = useRoute().params
@@ -17,12 +15,9 @@ export default function PainelSound({ navigation }) {
   async function playSound() {
     if (!state) {
       setState(true)
-
-      const { sound } = await Audio.Sound.createAsync(
-        require('../../assets/sounds/rain.mp3'),
-        { isLooping: true },
-      )
-
+      const { sound } = await Audio.Sound.createAsync(params.soundPath, {
+        isLooping: true,
+      })
       soundRef.current = sound
       await sound.playAsync()
     } else {
@@ -30,11 +25,9 @@ export default function PainelSound({ navigation }) {
       await soundRef.current?.stopAsync()
     }
   }
-
   const handleBlur = () => {
-    soundRef.current?.stopAsync()
+    soundRef.current?.unloadAsync()
   }
-
   const handleFocus = () => {
     playSound()
   }
@@ -42,10 +35,9 @@ export default function PainelSound({ navigation }) {
     soundRef.current?.setVolumeAsync(volume)
   }, [volume])
 
+  const unsubscribeBlur = navigation.addListener('blur', handleBlur)
+  const unsubscribeFocus = navigation.addListener('focus', handleFocus)
   useEffect(() => {
-    const unsubscribeBlur = navigation.addListener('blur', handleBlur)
-    const unsubscribeFocus = navigation.addListener('focus', handleFocus)
-
     return () => {
       unsubscribeBlur()
       unsubscribeFocus()
@@ -54,17 +46,8 @@ export default function PainelSound({ navigation }) {
 
   return (
     <View style={{ flex: 1 }}>
-      <Image
-        style={{
-          width,
-          height,
-          zIndex: -1,
-          position: 'absolute',
-        }}
-        source={params.imgRoute}
-      />
+      <Image style={style.backgroundImage} source={params.imgRoute} />
       <Header />
-
       <View style={style.painelContainer}>
         <Controller
           volume={(vol) => setVolume(vol)}

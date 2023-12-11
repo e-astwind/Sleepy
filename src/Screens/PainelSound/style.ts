@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native'
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 export const style = StyleSheet.create({
   painelContainer: {
@@ -10,5 +10,12 @@ export const style = StyleSheet.create({
     bottom: 48,
     left: 0,
     right: 0,
+  },
+  backgroundImage: {
+    width,
+    height,
+    zIndex: -1,
+    position: 'absolute',
+    resizeMode: 'cover',
   },
 })

@@ -2,30 +2,9 @@ import { View, FlatList } from 'react-native'
 import React from 'react'
 import MenuCard from '../../components/Cards/MenuCard'
 import { style } from './style'
+import { dataSounds } from '../../mocks/data-sounds'
 
-export function MenuSounds({ navigation }) {
-  const data = [
-    {
-      title: 'Rain city',
-      imgName: require('./../../assets/card_images/chuva.gif'),
-      onPress: () => {
-        navigation.navigate('PainelSound', {
-          name: 'Rain city',
-          imgRoute: require('./../../assets/card_images/chuva.gif'),
-        })
-      },
-    },
-    {
-      title: 'Rain',
-      imgName: require('./../../assets/card_images/rain.jpg'),
-      onPress: () => {
-        navigation.navigate('PainelSound', {
-          name: 'forest',
-          imgRoute: require('./../../assets/card_images/rain.jpg'),
-        })
-      },
-    },
-  ]
+export function MenuSounds() {
   return (
     <View style={style.container}>
       <FlatList
@@ -35,7 +14,7 @@ export function MenuSounds({ navigation }) {
           justifyContent: 'center',
           gap: 10,
         }}
-        data={data}
+        data={dataSounds()}
         renderItem={({ item }) => {
           return (
             <MenuCard
