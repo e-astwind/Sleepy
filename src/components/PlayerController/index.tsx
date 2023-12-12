@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { style } from './style'
 import Slider from '@react-native-community/slider'
 import { FontAwesome5, AntDesign, Ionicons } from '@expo/vector-icons'
-import { Icon } from '../'
+import { Icon } from '../Icon'
 type Props = {
   changeState: boolean
   controllerPress: () => void
@@ -20,13 +20,7 @@ export function Controller({ changeState, controllerPress, volume }: Props) {
   return (
     <View style={style.container}>
       <View style={style.volPlayerWrapper}>
-        <Icon
-          onPress={() => console.log()}
-          icon={AntDesign}
-          name="clockcircle"
-          size={22}
-          color="#FFF"
-        />
+        <Icon icon={AntDesign} name="clockcircle" size={22} color="#FFF" />
         <Icon
           onPress={controllerPress}
           icon={FontAwesome5}

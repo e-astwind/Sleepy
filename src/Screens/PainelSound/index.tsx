@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { View, Image } from 'react-native'
 import { Audio } from 'expo-av'
+import * as Notifications from 'expo-notifications'
 import { useRoute } from '@react-navigation/native'
 import { Controller, Header } from '../../components'
 import { style } from './style'
@@ -14,9 +15,14 @@ export default function PainelSound({ navigation }) {
   async function playSound() {
     if (!state) {
       setState(true)
+      await Audio.setAudioModeAsync({
+        staysActiveInBackground: true,
+      })
+
       const { sound } = await Audio.Sound.createAsync(params.soundPath, {
         isLooping: true,
       })
+
       soundRef.current = sound
       await sound.playAsync()
     } else {
@@ -30,13 +36,24 @@ export default function PainelSound({ navigation }) {
   const handleFocus = () => {
     playSound()
   }
+
+  async function notificationSettings() {
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: 'Playing ' + params.name,
+        body: 'Press here for go to app!',
+      },
+      trigger: null,
+    })
+  }
+
   useEffect(() => {
     soundRef.current?.setVolumeAsync(volume)
   }, [volume])
-
   const unsubscribeBlur = navigation.addListener('blur', handleBlur)
   const unsubscribeFocus = navigation.addListener('focus', handleFocus)
   useEffect(() => {
+    notificationSettings()
     return () => {
       unsubscribeBlur()
       unsubscribeFocus()

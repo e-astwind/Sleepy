@@ -3,7 +3,7 @@ import React from 'react'
 import { style } from './style'
 import { Ionicons } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
-import { Icon } from '../'
+import { Icon } from '../Icon'
 
 export function Header() {
   const navigation = useNavigation()
